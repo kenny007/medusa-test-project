@@ -40,7 +40,6 @@ describe('API: CustomProduct', () => {
       it('returns an empty array', async () => {
         const api = setupTestServer.getApi();
         const res = await api.get(`/store/custom-fetch`);
-        console.log('response', res)
         const data = res.data.data;
 
         expect(res.status).toEqual(200);
