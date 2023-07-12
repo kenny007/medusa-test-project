@@ -19,6 +19,7 @@
     "test": "cross-env jest",
     "seed": "cross-env medusa seed -f ./data/seed.json",
     "start": "cross-env npm run build && medusa start",
+    "start:dev": "npx @medusajs/medusa-cli develop",
     "start:custom": "cross-env npm run build && node --preserve-symlinks index.js",
     "dev": "cross-env npm run build && medusa develop",
     "build:admin": "cross-env medusa-admin build"
@@ -55,6 +56,7 @@
     "jest": "^27.3.1",
     "mongoose": "^5.13.14",
     "rimraf": "^3.0.2",
+    "supertest": "^6.3.3",
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.2"
