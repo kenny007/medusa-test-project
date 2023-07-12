@@ -1,6 +1,5 @@
 import express from "express"
 import { Express } from "express"
-// import getPort from "get-port"
 import axios from "axios"
 import { MedusaContainer } from "@medusajs/medusa/dist/types/global"
 import { asValue, createContainer } from "awilix"
@@ -20,7 +19,6 @@ export const setupTestServer = {
   setup: async (containerRegisters: ContainerRegister[] = []): Promise<void> => {
     medusaConfig = loadConfig(process.cwd())
     app = express()
-    // port = await getPort()
     port = 9000
     container = createContainer() as MedusaContainer
 

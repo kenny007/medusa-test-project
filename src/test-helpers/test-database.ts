@@ -1,8 +1,8 @@
-import { createConnection, Connection } from "typeorm"
+import { DataSource } from "typeorm"
 import path from "path"
 import loadConfig from "@medusajs/medusa/dist/loaders/config"
 
-let connection: Connection
+let connection: DataSource
 
 export const testDatabase = {
   setup: async (): Promise<void> => {
@@ -10,9 +10,9 @@ export const testDatabase = {
     const configModule = loadConfig(rootDirectory)
     const entitiesPath = path.join(__dirname, "..", "models", "**", "*.*")
     const migrationsPath = path.join(__dirname, "..", "migrations", "**", "*.*")
-    const databaseUrl = 'postgres://postgres:postgres@localhost:5432/medusa-db-8afcz'
+    const databaseUrl = 'postgres://postgres:postgres@localhost:5432/pricepally-new'
 
-    connection = await createConnection({
+    connection = new DataSource({
       type: 'postgres',
       url: databaseUrl,
       entities: [
@@ -21,17 +21,19 @@ export const testDatabase = {
       ],
       migrations: [migrationsPath],
       synchronize: false,
-      dropSchema: false,
+      dropSchema: false
     })
+
+    await connection.initialize()
   },
 
   destroy: async (): Promise<void> => {
     if (connection) {
-      await connection.close()
+      await connection.destroy()
     }
   },
 
-  getConnection: (): Connection => {
+  getConnection: (): DataSource => {
     return connection
   },
 }
