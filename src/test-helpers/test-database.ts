@@ -10,15 +10,18 @@ export const testDatabase = {
     const configModule = loadConfig(rootDirectory)
     const entitiesPath = path.join(__dirname, "..", "models", "**", "*.*")
     const migrationsPath = path.join(__dirname, "..", "migrations", "**", "*.*")
-    const databaseUrl = 'postgres://postgres:postgres@localhost:5432/medusa-db-8afcz'
+    const databaseUrl = 'postgres://postgres:Presence123@localhost:5432/pricepally-new'
 
     connection = await createConnection({
       type: 'postgres',
       url: databaseUrl,
-      entities: [entitiesPath],
+      entities: [
+        "node_modules/@medusajs/medusa/dist/models/*.js",
+        entitiesPath
+      ],
       migrations: [migrationsPath],
-      synchronize: true,
-      dropSchema: true,
+      synchronize: false,
+      dropSchema: false,
     })
   },
 

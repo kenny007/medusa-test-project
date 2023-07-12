@@ -63,9 +63,9 @@ export const setupTestServer = {
     })
   },
 
-  // destroy: async (): Promise<void> => {
-  //   await runningProcess.close()
-  // },
+  destroy: async (): Promise<void> => {
+     await runningProcess.close()
+  },
 
   getApp: (): Express => {
     return app

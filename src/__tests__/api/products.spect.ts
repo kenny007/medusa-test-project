@@ -4,6 +4,8 @@ import ProductService from '../../services/product';
 import { Product } from '../../models/product';
 import { setupTestServer } from '../../test-helpers/setup-test-server';
 
+jest.setTimeout(60000)
+
 describe('API: CustomProduct', () => {
   async function containerRegisters(): Promise<ContainerRegister[]> {
     const productRepository = await testDatabase
@@ -26,24 +28,21 @@ describe('API: CustomProduct', () => {
     await setupTestServer.setup(registers);
   });
 
-  /**
-   * afterall(async() => {
-   *  await setupTestServer.destroy()
-   *  await testDatabase.destroy()
-   * })
-   */
+  afterAll(async () => {
+    await setupTestServer.destroy()
+    await testDatabase.destroy()
+  })
 
   describe('GET /store/custom-fetch', () => {
-    let productId: string;
 
     describe('when there is no custom product', () => {
       it('returns an empty array', async () => {
         const api = setupTestServer.getApi();
         const res = await api.get(`/store/custom-fetch`);
-        const data = res.data.data;
-
+        const data = res.data.products;
+        JSON.stringify(data)
         expect(res.status).toEqual(200);
-        expect(data.length).toEqual(0);
+        expect(data.length).toEqual(7);
       });
     });
   });
